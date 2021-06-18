@@ -25,6 +25,24 @@ export const signIn =
       history.push("/home");
     }
   };
+export const login = (history, user) => async (dispatch, getState) => {
+  const userToLogin = await axios.post(`http://localhost:4000/login`, {
+    email: user.email,
+    password: user.password,
+  });
+  if (user) {
+    console.log(userToLogin.data.user);
+  }
+  // if (user) {
+  //   const res = await axios.get(
+  //     `http://localhost:4000/player/byname/${name}`
+  //   );
+  //   const playerId = parseInt(res.data.id);
+  //   console.log(playerId);
+  //   dispatch(add({ playerId, name, tribeId }));
+  //   history.push("/home");
+  // }
+};
 
 export const signOut = (id) => async (dispatch, getState) => {
   dispatch(removePlayer(null));
