@@ -16,10 +16,5 @@ export default function Lobby() {
   useEffect(() => {
     !user.id && history.push("/login");
   }, [user]);
-  return (
-    <div>
-      <h1>Welcome back, {user.name}!</h1>
-      <button onClick={handleClick}>Log out</button>
-    </div>
-  );
+  return <div></div>;
 }
