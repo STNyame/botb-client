@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import { Button, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../store/user/actions";

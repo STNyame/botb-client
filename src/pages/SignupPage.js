@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signup } from "../store/user/actions";
-import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 
 export default function SignupPage(props) {
   const history = useHistory();
