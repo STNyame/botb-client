@@ -18,16 +18,15 @@ export default function Lobby() {
   const user = useSelector(selectUser);
   const game = useSelector(selectGames);
 
-  useEffect(() => {
-    !user.id && history.push("/login");
-    // eslint-disable-next-line
-  }, [user]);
+  // useEffect(() => {
+
+  //   // eslint-disable-next-line
+  // }, [user]);
   useEffect(() => {
     if (game.length > 0) {
       dispatch(refreshGameList());
     }
     dispatch(getGames());
-    console.log(game);
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -44,9 +43,13 @@ export default function Lobby() {
               return (
                 <OverlayTrigger
                   placement="right"
-                  overlay={<Tooltip id="tooltip">Join game?</Tooltip>}
+                  overlay={<Tooltip id="tooltip">click to join game</Tooltip>}
                 >
-                  <ListGroup.Item key={item.id} action href={`#link${item.id}`}>
+                  <ListGroup.Item
+                    key={item.id}
+                    action
+                    href={`/room/${item.id}`}
+                  >
                     {item.gameName}
                   </ListGroup.Item>
                 </OverlayTrigger>

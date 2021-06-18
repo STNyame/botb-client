@@ -1,1 +1,2 @@
-export const selectUser = (reduxState) => reduxState.user;
+export const selectUser = (state) => state.user;
+export const selectToken = (state) => state.user.token;

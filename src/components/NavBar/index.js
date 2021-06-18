@@ -1,13 +1,15 @@
 import { Button, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { logOut } from "../../store/user/actions";
 import { selectUser } from "../../store/user/selectors";
 
 export default function NavBar() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(selectUser);
   const handleClick = () => {
-    dispatch(logOut());
+    dispatch(logOut(history));
     console.log(user);
   };
   return (
