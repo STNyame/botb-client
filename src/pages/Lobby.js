@@ -4,7 +4,7 @@ import { logOut } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function Lobby() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);

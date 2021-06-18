@@ -2,20 +2,22 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signup } from "../store/user/actions";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 
-export default function SignupPage() {
+export default function SignupPage(props) {
   const history = useHistory();
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
+    imageUrl: "",
   });
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signup(history, user));
   };
+
   return (
     <div>
       <Form onSubmit={handleSubmit}>
@@ -50,11 +52,26 @@ export default function SignupPage() {
             placeholder="Password"
           />
         </Form.Group>
+        <Row>
+          <Form.Group controlId="formBasicImage">
+            <Form.Label>Profile picture</Form.Label>
+            <Form.Control
+              value={user.imageUrl}
+              onChange={(e) => setUser({ ...user, imageUrl: e.target.value })}
+              type="text"
+              placeholder="Url(optional)"
+            />
+            <Col xs={6} md={4}>
+              <Image src="holder.js/171x180" roundedCircle />
+            </Col>
+          </Form.Group>
+        </Row>
 
         <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
+
       <Link to="/login">Already have an account? click here to log in!</Link>
     </div>
   );

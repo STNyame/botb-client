@@ -33,7 +33,7 @@ export const login = (history, user) => async (dispatch, getState) => {
       password: user.password,
     });
     dispatch(addUser(userToLogin.data.user));
-    history.push("/lobby");
+    history.push("/");
   } catch (e) {
     console.log(e.message);
   }
