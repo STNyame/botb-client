@@ -1,25 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signOut } from "../store/player/actions";
-import { selectPlayer } from "../store/player/selectors";
+import { logOut } from "../store/user/actions";
+import { selectUser } from "../store/user/selectors";
 import { useEffect } from "react";
 
 export default function Home() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const player = useSelector(selectPlayer);
+  const user = useSelector(selectUser);
   const handleClick = () => {
-    dispatch(signOut(player.id));
-    console.log(player);
+    dispatch(logOut());
+    console.log(user);
   };
 
   useEffect(() => {
-    !player.id && history.push("/");
-  }, [player]);
+    !user.id && history.push("/login");
+  }, [user]);
   return (
     <div>
-      <h1>HomePage!</h1>
-      <button onClick={handleClick}>Sign out</button>
+      <h1>Welcome back, {user.name}!</h1>
+      <button onClick={handleClick}>Log out</button>
     </div>
   );
 }

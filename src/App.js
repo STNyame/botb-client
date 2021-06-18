@@ -1,16 +1,19 @@
 import logo from "./logo.svg";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route } from "react-router-dom";
-import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <Switch>
-          <Route path="/home" component={Home} />
-          <Route path="/" component={SignIn} exact />
+          <Route path="/" component={Home} exact />
+          <Route path="/signup" component={SignupPage} />
+          <Route path="/login" component={LoginPage} exact />
         </Switch>
       </header>
     </div>
