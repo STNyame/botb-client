@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signup } from "../store/user/actions";
-import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 
 export default function SignupPage(props) {
   const history = useHistory();
@@ -52,20 +52,18 @@ export default function SignupPage(props) {
             placeholder="Password"
           />
         </Form.Group>
-        <Row>
-          <Form.Group controlId="formBasicImage">
-            <Form.Label>Profile picture</Form.Label>
-            <Form.Control
-              value={user.imageUrl}
-              onChange={(e) => setUser({ ...user, imageUrl: e.target.value })}
-              type="text"
-              placeholder="Url(optional)"
-            />
-            <Col xs={6} md={4}>
-              <Image src="holder.js/171x180" roundedCircle />
-            </Col>
-          </Form.Group>
-        </Row>
+
+        <Form.Group controlId="formBasicImage">
+          <Form.Label>Profile picture</Form.Label>
+          <Form.Control
+            value={user.imageUrl}
+            onChange={(e) => setUser({ ...user, imageUrl: e.target.value })}
+            type="text"
+            placeholder="Url(optional)"
+          />
+
+          <Image src={user.imageUrl} roundedCircle />
+        </Form.Group>
 
         <Button variant="primary" type="submit">
           Submit
