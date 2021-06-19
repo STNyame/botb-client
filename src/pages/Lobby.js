@@ -25,6 +25,7 @@ export default function Lobby() {
     socket.emit("test-event", 10, "hi", user);
     console.log(socket);
   }, []);
+
   useEffect(() => {
     if (game.length > 0) {
       dispatch(refreshGameList());
@@ -50,7 +51,7 @@ export default function Lobby() {
                   <ListGroup.Item
                     key={item.id}
                     action
-                    href={`/room/${item.id}`}
+                    href={`/room/${item.gameName}`}
                   >
                     {item.gameName}
                   </ListGroup.Item>
