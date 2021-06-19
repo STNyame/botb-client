@@ -68,6 +68,7 @@ export const signup = (history, user) => async (dispatch, getState) => {
       email: user.email,
       name: user.name,
       password: user.password,
+      imageUrl: user.imageUrl,
     });
     dispatch(addUser(userToSignup.data.user));
     history.push("/");
