@@ -1,3 +1,5 @@
+import { io } from "socket.io-client";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { selectUser } from "../store/user/selectors";
@@ -18,10 +20,11 @@ export default function Lobby() {
   const user = useSelector(selectUser);
   const game = useSelector(selectGames);
 
-  // useEffect(() => {
-
-  //   // eslint-disable-next-line
-  // }, [user]);
+  useEffect(() => {
+    const socket = io("http://localhost:4000");
+    socket.emit("test-event", 10, "hi", user);
+    console.log(socket);
+  }, []);
   useEffect(() => {
     if (game.length > 0) {
       dispatch(refreshGameList());
@@ -29,7 +32,6 @@ export default function Lobby() {
     dispatch(getGames());
     // eslint-disable-next-line
   }, [dispatch]);
-
   return (
     <div>
       {!game.length > 0 ? (
