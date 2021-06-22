@@ -20,11 +20,11 @@ export default function Lobby() {
   const user = useSelector(selectUser);
   const game = useSelector(selectGames);
 
-  useEffect(() => {
-    const socket = io("http://localhost:4000");
-    socket.emit("test-event", 10, "hi", user);
-    console.log(socket);
-  }, []);
+  // useEffect(() => {
+  //   const socket = io("http://localhost:4000");
+  //   socket.emit("test-event", 10, "hi", user);
+  //   console.log(socket);
+  // }, []);
 
   useEffect(() => {
     if (game.length > 0) {
@@ -51,7 +51,7 @@ export default function Lobby() {
                   <ListGroup.Item
                     key={item.id}
                     action
-                    href={`/room/${item.gameName}`}
+                    href={`/room/${item.id}/${item.gameName}`}
                   >
                     {item.gameName}
                   </ListGroup.Item>
