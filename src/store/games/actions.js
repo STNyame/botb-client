@@ -26,9 +26,11 @@ export const getAllGames = () => async (dispatch, getState) => {
 
 export const postNewGame =
   (gameName, passcode, history) => async (dispatch, getState) => {
+    const state = getState();
     const res = await axios.post(`http://localhost:4000/game/create`, {
       gameName,
       passcode,
+      userId: state.user.id,
     });
     console.log(res.data);
     //   dispatch({ type: "ADD_GAMES", payload: res.data });
@@ -37,7 +39,7 @@ export const postNewGame =
     dispatch(addCurrentGame(res.data));
 
     // Consider removing game name from url
-    history.push(`/room/${res.data.id}/${res.data.gameName}`);
+    history.push(`/room/${res.data.id}`);
   };
 
 export const removeUserFromGame =
