@@ -25,7 +25,7 @@ export default function App() {
       <header className="App-header">
         <Switch>
           <Route path="/" component={Lobby} exact />
-          <Route path="/room/:roomId/:roomName" component={RoomPage} />
+          <Route path="/room/:roomId" component={RoomPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
         </Switch>
