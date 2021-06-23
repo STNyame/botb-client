@@ -25,13 +25,20 @@ export const removeUserFromGame =
   };
 export const addUsersToGame =
   (userId, gameId) => async (dispatch, getState) => {
+    const state = getState();
     try {
       const addUser = await axios.post(`http://localhost:4000/game/create`, {
         userId,
         gameId,
       });
       const getUser = await axios.get(`http://localhost:4000/game/${gameId}`);
-      dispatch(addCurrentGame(getUser.data));
+      console.log("state currentgame:", state.currentGame);
+      if (
+        !state.currentGame.filter((e) => e.user.name === getUser.data.name)
+          .length > 0
+      ) {
+        dispatch(addCurrentGame(getUser.data));
+      }
     } catch (e) {
       console.log(e.message);
     }

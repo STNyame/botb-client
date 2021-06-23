@@ -5,7 +5,10 @@ export default function reducer(state = initialState, action) {
     case "ADD_CURRENT_GAME":
       return [...action.payload];
     case "ADD_NEW_PLAYER":
-      return [...state, action.payload];
+      if (!state.some((e) => e.user.name === action.payload.name)) {
+        return [...state, action.payload];
+      }
+      return state;
     case "REMOVE_GAME":
       return initialState;
     default: {

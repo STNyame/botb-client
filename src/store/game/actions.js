@@ -12,3 +12,13 @@ export const getGames = () => async (dispatch, getState) => {
   //   dispatch({ type: "ADD_GAMES", payload: res.data });
   dispatch(addGames(res.data));
 };
+
+export const postNewGame =
+  (gameName, passcode) => async (dispatch, getState) => {
+    const res = await axios.post(`http://localhost:4000/db/games/create`, {
+      gameName,
+      passcode,
+    });
+    //   dispatch({ type: "ADD_GAMES", payload: res.data });
+    dispatch(getGames());
+  };

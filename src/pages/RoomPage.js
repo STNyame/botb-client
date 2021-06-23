@@ -37,38 +37,46 @@ export default function RoomPage() {
 
   useEffect(() => {
     dispatch(fetchAllData());
-
     if (user.name) {
       socket.emit("join-room", room, user);
 
       handleRemove(false);
+      socket.on("new-player", (obj) => {
+        if (obj.name && user.name && obj.name !== user.name) {
+          if (!currentGame.filter((e) => e.user.name === obj.name).length > 0) {
+            // setPlayers([...players, { ...obj }]);
+            dispatch(addNewUserToGame({ user: obj }));
+            console.log("111111:", currentGame);
+          }
+        }
+      });
     }
   }, [user]);
 
   useEffect(() => {
-    // if (!currentGame.some((e) => e.name === user.name)) {
     if (user.name) {
-      dispatch(addUsersToGame(user.id, room));
+      if (!currentGame.some((e) => e.user.name === user.name)) {
+        dispatch(addUsersToGame(user.id, room));
+      }
     }
   }, [user]);
-  useEffect(() => {
-    handleJoinedUsers();
-  }, []);
-
-  const handleJoinedUsers = () => {
-    socket.on("new-player", (obj) => {
-      // if (obj.id && user.id && obj.id !== user.id) {
-      if (!players.some((e) => e.id === obj.id)) {
-        dispatch(addNewUserToGame({ user: obj }));
-        setPlayers([...players, { ...obj }]);
-        console.log(players);
-      }
-      // }
-    });
-  };
 
   // useEffect(() => {
-  // setTimeout(function () {
+  //   socket.on("new-player", (obj) => {
+  //     console.log(obj);
+  //     // if (obj.id && user.id && obj.id !== user.id) {
+  //     setTimeout(function () {
+  //       if (!currentGame.some((e) => e.user.name === obj.name)) {
+  //         dispatch(addNewUserToGame({ user: obj }));
+  //         // setPlayers([...players, { ...obj }]);
+  //         // console.log(players);
+  //       }
+  //     }, 2000);
+  //     // }
+  //   });
+  // }, []);
+
+  // useEffect(() => {
   //   if (connected === false) {
   //     socket.emit("all-players", room, user);
   //     socket.on("all-players", (arr) => {
@@ -77,13 +85,12 @@ export default function RoomPage() {
   //       setConnected(true);
   //     });
   //   }
-  // }, 2000);
   // });
   const handleRemove = (boolean) => {
     dispatch(removeUserFromGame(user.id, history, boolean));
     console.log(user.id);
   };
-
+  console.log(currentGame);
   return (
     <div>
       <Container>
