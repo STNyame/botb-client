@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action) {
         };
       }
     case "REMOVE_GAME":
-      return initialState;
+      return { ...initialState, current: { users: state.current.users } };
     default: {
       return state;
     }

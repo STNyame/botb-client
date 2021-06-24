@@ -36,10 +36,10 @@ export const postNewGame =
     //   dispatch({ type: "ADD_GAMES", payload: res.data });
     // dispatch(getGames());
 
-    dispatch(addCurrentGame(res.data));
+    // dispatch(addCurrentGame(res.data));
 
     // Consider removing game name from url
-    history.push(`/room/${res.data.id}`);
+    dispatch(joinGame(state.user.id, res.data.id, history));
   };
 
 export const removeUserFromGame =
@@ -60,9 +60,11 @@ export const removeUserFromGame =
 export const joinGame =
   (userId, gameId, history) => async (dispatch, getState) => {
     try {
+      const socketId = getState().user.socketId;
       const addUser = await axios.post(`http://localhost:4000/game/join`, {
         userId,
         gameId,
+        socketId,
       });
       const currentGame = dispatch(getCurrentGame(gameId, history));
     } catch (e) {

@@ -1,5 +1,6 @@
 const initialState = {
   token: localStorage.getItem("token"),
+  socketId: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -10,9 +11,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         ...action.payload,
       };
+    case "SAVE_SOCKET_ID": {
+      return {
+        ...state,
+        socketId: action.payload,
+      };
+    }
     case "REMOVE_USER":
       localStorage.removeItem("token");
-      return { ...initialState, token: null };
+      return { ...initialState, token: null, socketId: state.socketId };
     case "TOKEN_STILL_VALID":
       return { ...state, ...action.payload };
     default: {

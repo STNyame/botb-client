@@ -1,5 +1,3 @@
-import { io } from "socket.io-client";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -30,11 +28,6 @@ export default function Lobby() {
   const [gameName, setGameName] = useState("");
   const [passcode, setPasscode] = useState("");
 
-  // useEffect(() => {
-  //   const socket = io("http://localhost:4000");
-  //   socket.emit("test-event", 10, "hi", user);
-  //   console.log(socket);
-  // }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postNewGame(gameName, passcode, history));

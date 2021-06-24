@@ -23,6 +23,7 @@ import {
   addNewUserToGame,
   joinGame,
   removeUserFromGame,
+  getCurrentGame,
 } from "../store/games/actions";
 import { selectCurrentGame } from "../store/games/selectors";
 
@@ -38,6 +39,11 @@ export default function RoomPage() {
 
   useEffect(() => {
     dispatch(fetchAllData());
+
+    if (!currentGame) {
+      dispatch(getCurrentGame(queryParam.roomId));
+    }
+
     // if (user.name) {
     //   socket.emit("join-room", room, user);
 

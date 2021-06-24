@@ -6,6 +6,11 @@ export const addUser = (user) => ({
   payload: user,
 });
 
+export const saveSocketId = (id) => ({
+  type: "SAVE_SOCKET_ID",
+  payload: id,
+});
+
 export const removeUser = (user) => ({
   type: "REMOVE_USER",
   payload: user,
