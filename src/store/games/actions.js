@@ -8,6 +8,10 @@ export const addNewUserToGame = (user) => ({
   type: "ADD_NEW_PLAYER",
   payload: user,
 });
+export const userReadyForGame = (user) => ({
+  type: "READY_PLAYER",
+  payload: user,
+});
 
 export const addAllGames = (games) => ({
   type: "ADD_ALL_GAMES",
@@ -57,6 +61,20 @@ export const removeUserFromGame =
     }
   };
 
+export const readyForGame =
+  (userId, gameId, history) => async (dispatch, getState) => {
+    try {
+      const socketId = getState().user.socketId;
+      const patchUser = await axios.patch(`http://localhost:4000/game/ready`, {
+        userId,
+        gameId,
+        socketId,
+      });
+      const currentGame = dispatch(getCurrentGame(gameId, history));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 export const joinGame =
   (userId, gameId, history) => async (dispatch, getState) => {
     try {
@@ -78,7 +96,7 @@ export const getCurrentGame =
       const response = await axios.get(
         `http://localhost:4000/game/current/${gameId}`
       );
-      dispatch(addCurrentGame(response.data));
+      dispatch(addCurrentGame({ ...response.data }));
       history.push(`/room/${gameId}`);
     } catch (e) {
       console.log(e.message);

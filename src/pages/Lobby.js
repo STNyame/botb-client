@@ -18,6 +18,7 @@ import {
 import { getAllGames, postNewGame, joinGame } from "../store/games/actions";
 import { selectAllGames } from "../store/games/selectors";
 import { selectUser } from "../store/user/selectors";
+import { socket } from "../service/socket";
 
 export default function Lobby() {
   const history = useHistory();

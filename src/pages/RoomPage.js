@@ -24,6 +24,7 @@ import {
   joinGame,
   removeUserFromGame,
   getCurrentGame,
+  readyForGame,
 } from "../store/games/actions";
 import { selectCurrentGame } from "../store/games/selectors";
 
@@ -58,6 +59,14 @@ export default function RoomPage() {
     //   });
     // }
   }, [user]);
+  // useEffect(() => {
+  //   socket.on("playerIsReady", (userObj, boolean) => {
+  //     if (userObj.id !== user.id) {
+  //       const player = { ...userObj, ready: boolean };
+  //       dispatch(addNewUserToGame(player));
+  //     }
+  //   });
+  // });
 
   // useEffect(() => {
   //   if (user.name) {
@@ -97,6 +106,9 @@ export default function RoomPage() {
     console.log(user.id);
   };
   console.log(currentGame);
+  // socket.on("playerIsReady", (boolean) => {
+  //   console.log("this is what i want:", boolean);
+  // });
   return (
     <div>
       <Container>
@@ -110,7 +122,11 @@ export default function RoomPage() {
                 {currentGame.users.map((u) => (
                   <OverlayTrigger
                     placement="right"
-                    overlay={<Tooltip id="tooltip">Ready?</Tooltip>}
+                    overlay={
+                      <Tooltip id="tooltip">
+                        {u.ready ? "Ready" : "Waiting for response"}
+                      </Tooltip>
+                    }
                   >
                     <ListGroup.Item
                       // key={item.id}
@@ -126,6 +142,26 @@ export default function RoomPage() {
                           />
                         </Col>
                         <Col>{u.name}</Col>
+
+                        {u.id !== user.id && (
+                          <Col>
+                            <Button
+                              variant={u.ready ? "success" : "warning"}
+                              disabled
+                            >
+                              {u.ready ? "READY" : "WAITING"}
+                              {!u.ready && (
+                                <Spinner
+                                  as="span"
+                                  animation="grow"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </Button>
+                          </Col>
+                        )}
                         {u.id === user.id && (
                           <Col>
                             <Form.Group controlId="formBasicPassword">
@@ -137,7 +173,16 @@ export default function RoomPage() {
                                 ))}
                               </Form.Control>
                             </Form.Group>
-                            <Button variant="secondary">Ready?</Button>
+                            <Button
+                              variant="secondary"
+                              onClick={() => {
+                                dispatch(
+                                  readyForGame(user.id, currentGame.id, history)
+                                );
+                              }}
+                            >
+                              {u.ready ? "Change settings" : "Ready?"}
+                            </Button>
                             <Button
                               variant="danger"
                               onClick={() => handleRemove(true)}
