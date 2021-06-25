@@ -1,4 +1,4 @@
-import { Button, Nav } from "react-bootstrap";
+import { Button, Image, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logOut } from "../../store/user/actions";
@@ -13,12 +13,12 @@ export default function NavBar() {
     console.log(user);
   };
   return (
-    <Nav justify activeKey="/">
-      <Nav.Item>
-        <Nav.Link href="/">Home</Nav.Link>
-      </Nav.Item>
+    <Nav style={{ padding: "10px 0" }} justify activeKey="/">
       {!user.id && (
         <>
+          <Nav.Item>
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/login">Login</Nav.Link>
           </Nav.Item>
@@ -29,6 +29,16 @@ export default function NavBar() {
       )}
       {user.name && (
         <>
+          <Nav.Item>
+            <Image
+              src={user.imageUrl}
+              style={{ width: "50px" }}
+              roundedCircle
+            />
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav.Item>
           <Nav.Item>
             <Nav.Link disabled>Welcome, {user.name}</Nav.Link>
           </Nav.Item>

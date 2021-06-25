@@ -6,6 +6,11 @@ export const addUser = (user) => ({
   payload: user,
 });
 
+export const saveSocketId = (id) => ({
+  type: "SAVE_SOCKET_ID",
+  payload: id,
+});
+
 export const removeUser = (user) => ({
   type: "REMOVE_USER",
   payload: user,
@@ -68,6 +73,7 @@ export const signup = (history, user) => async (dispatch, getState) => {
       email: user.email,
       name: user.name,
       password: user.password,
+      imageUrl: user.imageUrl,
     });
     dispatch(addUser(userToSignup.data.user));
     history.push("/");
