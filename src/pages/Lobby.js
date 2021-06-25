@@ -15,7 +15,13 @@ import {
   Tooltip,
 } from "react-bootstrap";
 
-import { getAllGames, postNewGame, joinGame } from "../store/games/actions";
+import {
+  getAllGames,
+  postNewGame,
+  joinGame,
+  removeUserFromGame,
+  readyForGame,
+} from "../store/games/actions";
 import { selectAllGames } from "../store/games/selectors";
 import { selectUser } from "../store/user/selectors";
 import { socket } from "../service/socket";
@@ -35,6 +41,10 @@ export default function Lobby() {
   };
 
   useEffect(() => {
+    dispatch(removeUserFromGame(user.id, history, false));
+    if (user.ready) {
+      dispatch(readyForGame(user.id, null, history));
+    }
     dispatch(getAllGames());
     // eslint-disable-next-line
   }, [dispatch]);

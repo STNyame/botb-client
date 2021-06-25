@@ -32,7 +32,6 @@ export default function App() {
       dispatch(addNewUserToGame(player));
     });
     socket.on("playerIsReady", (boolean) => {
-      console.log("ee", boolean);
       dispatch(userReadyForGame(boolean));
     });
   }, []);
