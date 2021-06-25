@@ -43,6 +43,7 @@ export default function Lobby() {
   useEffect(() => {
     dispatch(removeUserFromGame(user.id, history, false));
     if (user.ready) {
+      console.log(user.ready);
       dispatch(readyForGame(user.id, null, history));
     }
     dispatch(getAllGames());

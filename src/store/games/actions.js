@@ -1,4 +1,5 @@
 import axios from "axios";
+import { addUser } from "../user/actions";
 
 export const addCurrentGame = (currentGame) => ({
   type: "ADD_CURRENT_GAME",
@@ -70,7 +71,9 @@ export const readyForGame =
         gameId,
         socketId,
       });
+      console.log("this is patch ", patchUser);
       const currentGame = dispatch(getCurrentGame(gameId, history));
+      dispatch(addUser(patchUser.data));
     } catch (e) {
       console.log(e.message);
     }
