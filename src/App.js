@@ -13,7 +13,11 @@ import NavBar from "./components/NavBar";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getUserWithStoredToken, saveSocketId } from "./store/user/actions";
-import { addNewUserToGame, userReadyForGame } from "./store/games/actions";
+import {
+  addNewUserToGame,
+  removeOneUserFromGame,
+  userReadyForGame,
+} from "./store/games/actions";
 import RoomPage from "./pages/RoomPage";
 
 export default function App() {
@@ -30,6 +34,9 @@ export default function App() {
     });
     socket.on("new-player", (player) => {
       dispatch(addNewUserToGame(player));
+    });
+    socket.on("remove-player", (player) => {
+      dispatch(removeOneUserFromGame(player));
     });
     socket.on("playerIsReady", (boolean) => {
       dispatch(userReadyForGame(boolean));

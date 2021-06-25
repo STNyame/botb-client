@@ -9,6 +9,10 @@ export const addNewUserToGame = (user) => ({
   type: "ADD_NEW_PLAYER",
   payload: user,
 });
+export const removeOneUserFromGame = (user) => ({
+  type: "REMOVE_ONE_PLAYER",
+  payload: user,
+});
 export const userReadyForGame = (user) => ({
   type: "READY_PLAYER",
   payload: user,

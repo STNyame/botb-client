@@ -14,17 +14,12 @@ export default function reducer(state = initialState, action) {
       // action.paylod = playerObj { id, name, img };
 
       const new_users_array = [...state.current.users].map((user) => {
-        // decide whether this player's score needs to be incremented
         if (user.id === action.payload.id) {
-          // and if so, create a new player object,
           return {
-            // but first copying over the player object's data
             ...user,
-            // and then overriding the score property to be incremented
             ready: action.payload.ready,
           };
         } else {
-          // else, just keep them
           return user;
         }
       });
@@ -35,10 +30,21 @@ export default function reducer(state = initialState, action) {
           users: new_users_array,
         },
       };
-
-    case "ADD_NEW_PLAYER":
+    case "REMOVE_ONE_PLAYER":
       // action.paylod = playerObj { id, name, img };
 
+      const userToRemoveArray = [...state.current.users].filter((user) => {
+        return user.id !== action.payload.id;
+      });
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          users: userToRemoveArray,
+        },
+      };
+
+    case "ADD_NEW_PLAYER":
       const isInGame = state.current.users.find(
         (u) => u.id === action.payload.id
       );
