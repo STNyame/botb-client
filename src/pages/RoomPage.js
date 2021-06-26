@@ -137,6 +137,7 @@ export default function RoomPage() {
             </Col>
           </Row>
         )}
+
         <Row>
           <Col>
             {currentGame && currentGame.users.length <= 1 && (

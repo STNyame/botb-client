@@ -1,5 +1,6 @@
 import axios from "axios";
 import { addUser } from "../user/actions";
+import { DB_URL } from "../../service/db-url";
 
 export const addCurrentGame = (currentGame) => ({
   type: "ADD_CURRENT_GAME",
@@ -28,7 +29,7 @@ export const refreshGameList = () => ({
 });
 
 export const getAllGames = () => async (dispatch, getState) => {
-  const res = await axios.get(`http://localhost:4000/game/all`);
+  const res = await axios.get(`${DB_URL}/game/all`);
   //   dispatch({ type: "ADD_GAMES", payload: res.data });
   dispatch(addAllGames(res.data));
 };
@@ -36,7 +37,7 @@ export const getAllGames = () => async (dispatch, getState) => {
 export const postNewGame =
   (gameName, passcode, history) => async (dispatch, getState) => {
     const state = getState();
-    const res = await axios.post(`http://localhost:4000/game/create`, {
+    const res = await axios.post(`${DB_URL}/game/create`, {
       gameName,
       passcode,
       userId: state.user.id,
@@ -54,9 +55,7 @@ export const postNewGame =
 export const removeUserFromGame =
   (userId, history, boolean) => async (dispatch, getState) => {
     try {
-      const removeGame = await axios.delete(
-        `http://localhost:4000/game/delete/${userId}`
-      );
+      const removeGame = await axios.delete(`${DB_URL}/game/delete/${userId}`);
       console.log(removeGame);
       dispatch({ type: "REMOVE_GAME" });
 
@@ -70,7 +69,7 @@ export const readyForGame =
   (userId, gameId, history) => async (dispatch, getState) => {
     try {
       const socketId = getState().user.socketId;
-      const patchUser = await axios.patch(`http://localhost:4000/game/ready`, {
+      const patchUser = await axios.patch(`${DB_URL}/game/ready`, {
         userId,
         gameId,
         socketId,
@@ -86,7 +85,7 @@ export const joinGame =
   (userId, gameId, history) => async (dispatch, getState) => {
     try {
       const socketId = getState().user.socketId;
-      const addUser = await axios.post(`http://localhost:4000/game/join`, {
+      const addUser = await axios.post(`${DB_URL}/game/join`, {
         userId,
         gameId,
         socketId,
@@ -100,9 +99,7 @@ export const joinGame =
 export const getCurrentGame =
   (gameId, history) => async (dispatch, getState) => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/game/current/${gameId}`
-      );
+      const response = await axios.get(`${DB_URL}/game/current/${gameId}`);
       dispatch(addCurrentGame({ ...response.data }));
       history.push(`/room/${gameId}`);
     } catch (e) {
