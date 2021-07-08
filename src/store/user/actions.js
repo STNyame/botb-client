@@ -17,6 +17,11 @@ export const removeUser = (user) => ({
   payload: user,
 });
 
+export const addTribe = (tribeState) => ({
+  type: "TRIBE_OF_USER",
+  payload: tribeState,
+});
+
 const tokenStillValid = (userWithoutToken) => ({
   type: "TOKEN_STILL_VALID",
   payload: userWithoutToken,

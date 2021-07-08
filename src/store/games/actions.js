@@ -1,6 +1,7 @@
 import axios from "axios";
 import { addUser } from "../user/actions";
 import { DB_URL } from "../../service/db-url";
+import { addPlayer } from "../player/actions";
 
 export const addCurrentGame = (currentGame) => ({
   type: "ADD_CURRENT_GAME",
@@ -106,3 +107,30 @@ export const getCurrentGame =
       console.log(e.message);
     }
   };
+export const startGame = (gameId) => async (dispatch, getState) => {
+  axios.post(`${DB_URL}/player/start`, {
+    gameId,
+  });
+};
+
+export const createPlayer = (userId, history) => async (dispatch, getState) => {
+  const state = getState();
+  const gameId = state.games.current.id;
+  const tribeId = state.user.tribe;
+  try {
+    // if (state.player === {}) {
+    const createAndGetPlayer = await axios.post(`${DB_URL}/player/create`, {
+      userId,
+      gameId,
+      tribeId,
+    });
+    const getPlayer = await axios.get(
+      `${DB_URL}/player/resourceOfPlayer/${createAndGetPlayer.data.id}`
+    );
+    dispatch(addPlayer(getPlayer.data));
+    history.push(`/game/${gameId}`);
+    // }
+  } catch (e) {
+    console.log(e.message);
+  }
+};

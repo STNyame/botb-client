@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Col,
@@ -22,8 +22,10 @@ import {
   removeUserFromGame,
   getCurrentGame,
   readyForGame,
+  startGame,
 } from "../store/games/actions";
 import { selectCurrentGame } from "../store/games/selectors";
+import { addTribe } from "../store/user/actions";
 
 export default function RoomPage() {
   const history = useHistory();
@@ -33,6 +35,7 @@ export default function RoomPage() {
   const user = useSelector(selectUser);
   const currentGame = useSelector(selectCurrentGame);
   const room = queryParam.roomId;
+  const [tribeState, setTribeState] = useState(1);
 
   useEffect(() => {
     dispatch(fetchAllData());
@@ -103,9 +106,12 @@ export default function RoomPage() {
                         {u.id === user.id && (
                           <Col>
                             <Form.Group controlId="formBasicPassword">
-                              <Form.Control as="select">
+                              <Form.Control
+                                as="select"
+                                onChange={(e) => setTribeState(e.target.value)}
+                              >
                                 {data.allTribe.map((item) => (
-                                  <option key={item.id}>
+                                  <option value={item.id} key={item.id}>
                                     {item.tribeName}
                                   </option>
                                 ))}
@@ -117,6 +123,7 @@ export default function RoomPage() {
                                 dispatch(
                                   readyForGame(user.id, currentGame.id, history)
                                 );
+                                dispatch(addTribe(tribeState));
                               }}
                             >
                               {u.ready ? "Change settings" : "Ready?"}
@@ -152,6 +159,19 @@ export default function RoomPage() {
                 />
               </Button>
             )}
+            {currentGame.users.length > 1 &&
+              currentGame.users.filter((item) => item.ready === false)
+                .length === 0 && (
+                <Button
+                  style={{ width: "100%" }}
+                  variant="success"
+                  onClick={() => {
+                    dispatch(startGame(currentGame.id));
+                  }}
+                >
+                  Start
+                </Button>
+              )}
           </Col>
         </Row>
       </Container>

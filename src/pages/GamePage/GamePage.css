@@ -1,0 +1,17 @@
+.game-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.game-item-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.game-item-row {
+  display: flex;
+  align-self: flex-end;
+  align-content: flex-end;
+}

@@ -5,15 +5,15 @@ import {
   Button,
   Card,
   Col,
-  Collapse,
   Container,
   Form,
   ListGroup,
   OverlayTrigger,
-  Row,
   Spinner,
   Tooltip,
 } from "react-bootstrap";
+
+import "./Lobby.css";
 
 import {
   getAllGames,
@@ -24,7 +24,6 @@ import {
 } from "../store/games/actions";
 import { selectAllGames } from "../store/games/selectors";
 import { selectUser } from "../store/user/selectors";
-import { socket } from "../service/socket";
 
 export default function Lobby() {
   const history = useHistory();
@@ -58,7 +57,7 @@ export default function Lobby() {
             <Spinner animation="border" />
           ) : (
             !open && (
-              <Card bg="dark">
+              <Card className="card-style">
                 <Card.Header>Games</Card.Header>
 
                 <ListGroup defaultActiveKey="#link1">
@@ -71,6 +70,8 @@ export default function Lobby() {
                         }
                       >
                         <ListGroup.Item
+                          className="list-style"
+                          disabled={item.users.length === 4}
                           key={item.id}
                           action
                           // href={`/room/${item.id}/${item.gameName}`}
@@ -79,6 +80,19 @@ export default function Lobby() {
                           }
                         >
                           {item.gameName}
+                          <Col>
+                            <Button
+                              disabled
+                              variant={
+                                item.users.length === 4
+                                  ? "secondary"
+                                  : "warning"
+                              }
+                              style={{ alignSelf: "flex-end" }}
+                            >
+                              {item.users.length}/4
+                            </Button>
+                          </Col>
                         </ListGroup.Item>
                       </OverlayTrigger>
                     );
