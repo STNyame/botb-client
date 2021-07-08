@@ -1,4 +1,5 @@
 import axios from "axios";
+import { DB_URL } from "../../service/db-url";
 import { selectToken } from "./selectors";
 
 export const addUser = (user) => ({
@@ -14,6 +15,11 @@ export const saveSocketId = (id) => ({
 export const removeUser = (user) => ({
   type: "REMOVE_USER",
   payload: user,
+});
+
+export const addTribe = (tribeState) => ({
+  type: "TRIBE_OF_USER",
+  payload: tribeState,
 });
 
 const tokenStillValid = (userWithoutToken) => ({
@@ -35,7 +41,7 @@ export const getUserWithStoredToken = (history) => {
     try {
       // if we do have a token,
       // check wether it is still valid or if it is expired
-      const response = await axios.get(`http://localhost:4000/me`, {
+      const response = await axios.get(`${DB_URL}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -56,7 +62,7 @@ export const getUserWithStoredToken = (history) => {
 };
 export const login = (history, user) => async (dispatch, getState) => {
   try {
-    const userToLogin = await axios.post(`http://localhost:4000/login`, {
+    const userToLogin = await axios.post(`${DB_URL}/login`, {
       email: user.email,
       password: user.password,
     });
@@ -69,7 +75,7 @@ export const login = (history, user) => async (dispatch, getState) => {
 
 export const signup = (history, user) => async (dispatch, getState) => {
   try {
-    const userToSignup = await axios.post(`http://localhost:4000/signup`, {
+    const userToSignup = await axios.post(`${DB_URL}/signup`, {
       email: user.email,
       name: user.name,
       password: user.password,

@@ -50,3 +50,8 @@ export const signOut = (id) => async (dispatch, getState) => {
   console.log("working?");
   //   history.push("/");
 };
+
+export const addPlayer = (player) => ({
+  type: "ADD_PLAYER",
+  payload: player,
+});

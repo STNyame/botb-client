@@ -1,0 +1,16 @@
+.card-style {
+  background-color: #393e46;
+  box-shadow: 3px 3px 7px rgb(34, 33, 33);
+  color: #eeeeee;
+  /* margin-bottom: 20px; */
+}
+
+.list-style {
+  background-color: #393e46;
+  box-shadow: 3px 3px 7px rgb(34, 33, 33);
+  color: #eeeeee;
+}
+
+.btn-color {
+  background-color: #00adb5;
+}

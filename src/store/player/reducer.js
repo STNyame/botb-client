@@ -1,8 +1,4 @@
-const initialState = {
-  id: null,
-  name: null,
-  tribeId: null,
-};
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -20,6 +16,8 @@ export default function reducer(state = initialState, action) {
         name: action.payload,
         tribeId: action.payload,
       };
+    case "ADD_PLAYER":
+      return action.payload;
     default: {
       return state;
     }
