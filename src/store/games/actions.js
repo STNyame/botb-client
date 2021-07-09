@@ -81,7 +81,7 @@ export const readyForGame =
         socketId,
       });
       console.log("this is patch ", patchUser);
-      const currentGame = dispatch(getCurrentGame(gameId, history));
+      dispatch(getCurrentGame(gameId, history));
       dispatch(addUser(patchUser.data));
     } catch (e) {
       console.log(e.message);
@@ -91,12 +91,12 @@ export const joinGame =
   (userId, gameId, history) => async (dispatch, getState) => {
     try {
       const socketId = getState().user.socketId;
-      const addUser = await axios.post(`${DB_URL}/game/join`, {
+      await axios.post(`${DB_URL}/game/join`, {
         userId,
         gameId,
         socketId,
       });
-      const currentGame = dispatch(getCurrentGame(gameId, history));
+      dispatch(getCurrentGame(gameId, history));
     } catch (e) {
       console.log(e.message);
     }

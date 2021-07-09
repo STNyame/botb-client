@@ -1,10 +1,7 @@
 import { Accordion, Card, Button } from "react-bootstrap";
 import "../GamePage/GamePage.css";
 
-import { useDispatch } from "react-redux";
-
 export default function GamePage() {
-  const dispatch = useDispatch();
   return (
     <div>
       <Accordion defaultActiveKey="1">
