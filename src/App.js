@@ -2,7 +2,6 @@
 // import io from "socket.io-client";
 import { socket } from "./service/socket";
 
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route, useHistory } from "react-router-dom";
@@ -19,20 +18,17 @@ import {
   createPlayer,
   getAllGames,
   removeOneUserFromGame,
-  startGame,
   userReadyForGame,
 } from "./store/games/actions";
 import RoomPage from "./pages/RoomPage";
 import GamePage from "./pages/GamePage/GamePage";
 import { selectUser } from "./store/user/selectors";
-import { selectCurrentGame } from "./store/games/selectors";
 import { selectPlayer } from "./store/player/selectors";
 
 export default function App() {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(selectUser);
-  const currentGame = useSelector(selectCurrentGame);
   const player = useSelector(selectPlayer);
 
   useEffect(() => {
@@ -64,6 +60,8 @@ export default function App() {
 
       dispatch(createPlayer(user.id, history));
     });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

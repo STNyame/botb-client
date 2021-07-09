@@ -35,7 +35,6 @@ export default function RoomPage() {
   const data = useSelector(selectAllData);
   const user = useSelector(selectUser);
   const currentGame = useSelector(selectCurrentGame);
-  const room = queryParam.roomId;
   const [tribeState, setTribeState] = useState(1);
 
   useEffect(() => {
@@ -44,13 +43,13 @@ export default function RoomPage() {
     if (!currentGame) {
       dispatch(getCurrentGame(queryParam.roomId));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleRemove = (boolean) => {
     dispatch(removeUserFromGame(user.id, history, boolean));
     console.log(user.id);
   };
-  const textArray = ["test1", "test2", "test3", "test4"];
   return (
     <div>
       <Container>

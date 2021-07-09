@@ -1,6 +1,5 @@
 import axios from "axios";
 import { DB_URL } from "../../service/db-url";
-import { addMessage } from "../games/actions";
 import { selectToken } from "./selectors";
 
 export const addUser = (user) => ({
