@@ -1,5 +1,6 @@
 import axios from "axios";
 import { DB_URL } from "../../service/db-url";
+import { addMessage } from "../games/actions";
 import { selectToken } from "./selectors";
 
 export const addUser = (user) => ({
@@ -92,3 +93,13 @@ export const logOut = (history) => async (dispatch, getState) => {
   history.push("/login");
   dispatch(removeUser(null));
 };
+
+export const sendMessage =
+  (user, gameId, message) => async (dispatch, getState) => {
+    const sendMessage = await axios.post(`${DB_URL}/game/message`, {
+      user,
+      gameId,
+      message,
+    });
+    console.log("action", sendMessage.data);
+  };

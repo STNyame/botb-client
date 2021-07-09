@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserWithStoredToken, saveSocketId } from "./store/user/actions";
 import {
+  addMessage,
   addNewUserToGame,
   createPlayer,
   getAllGames,
@@ -49,6 +50,11 @@ export default function App() {
     socket.on("remove-player", (player) => {
       dispatch(removeOneUserFromGame(player));
       dispatch(getAllGames());
+    });
+    socket.on("message", (obj) => {
+      if (obj.user !== user.name) {
+        dispatch(addMessage(obj));
+      }
     });
     socket.on("playerIsReady", (boolean) => {
       dispatch(userReadyForGame(boolean));

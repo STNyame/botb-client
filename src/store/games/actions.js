@@ -3,6 +3,11 @@ import { addUser } from "../user/actions";
 import { DB_URL } from "../../service/db-url";
 import { addPlayer } from "../player/actions";
 
+export const addMessage = (obj) => ({
+  type: "ADD_MESSAGE",
+  payload: obj,
+});
+
 export const addCurrentGame = (currentGame) => ({
   type: "ADD_CURRENT_GAME",
   payload: currentGame,
