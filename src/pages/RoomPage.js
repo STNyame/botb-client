@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import Chatbox from "../components/Chatbox/Chatbox";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -49,15 +50,15 @@ export default function RoomPage() {
     dispatch(removeUserFromGame(user.id, history, boolean));
     console.log(user.id);
   };
-
+  const textArray = ["test1", "test2", "test3", "test4"];
   return (
     <div>
       <Container>
-        {!currentGame || !data.allTribe ? (
-          <Spinner animation="grow" variant="secondary" />
-        ) : (
-          <Row>
-            <Col>
+        <Row>
+          <Col style={{ flex: "3" }}>
+            {!currentGame || !data.allTribe ? (
+              <Spinner animation="grow" variant="secondary" />
+            ) : (
               <Card bg="dark">
                 <Card.Header>{currentGame.gameName}</Card.Header>
                 {currentGame.users.map((u) => (
@@ -141,12 +142,8 @@ export default function RoomPage() {
                   </OverlayTrigger>
                 ))}
               </Card>
-            </Col>
-          </Row>
-        )}
+            )}
 
-        <Row>
-          <Col>
             {currentGame && currentGame.users.length <= 1 && (
               <Button variant="warning" disabled>
                 Waiting for other players...
@@ -172,6 +169,10 @@ export default function RoomPage() {
                   Start
                 </Button>
               )}
+          </Col>
+
+          <Col style={{ flex: "2" }}>
+            <Chatbox game={currentGame} userName={user.name} />
           </Col>
         </Row>
       </Container>

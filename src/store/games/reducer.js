@@ -1,4 +1,5 @@
 const initialState = {
+  messages: [],
   current: null,
   all: [],
 };
@@ -65,6 +66,11 @@ export default function reducer(state = initialState, action) {
         ...initialState,
         current: { users: state.current.users },
         all: [...state.all],
+      };
+    case "ADD_MESSAGE":
+      return {
+        ...state,
+        messages: [action.payload, ...state.messages],
       };
     default: {
       return state;
